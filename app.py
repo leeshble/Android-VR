@@ -22,6 +22,10 @@ def gen():
 def Feed():
     return Response(gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/Capture')
+def Capture():
+    return render_template('capture.html')
 
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

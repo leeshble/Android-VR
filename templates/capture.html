@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="capture page">
+    <title>Test</title>
+  </head>
+  <body onload="sett()">
+   <form>
+      <video id="video" width="600" height="600" autoplay></video>
+      <canvas width="600" height="600"  ></canvas>
+
+	 </form>
+   <button id="start">Start capture</button>
+   <script type="text/javascript">
+    function sett() {
+      document.getElementById("start").addEventListener("click", e => capturef(e));
+    }
+    function capturef(e) {
+      navigator.mediaDevices.getUserMedia({video : {width : 600, height : 600}}).
+        then(stream => {
+          if (document.getElementById("video")) {
+            document.getElementById("video").srcObject = stream
+          } 
+          let m = new MediaRecorder(stream, {mimeType:"video/webm; codecs=vp9"});
+          m.ondataavailable = e => _ondata(e);
+          m.start(100);
+        });
+    }
+    function _ondata(e) {
+      console.log(e);
+    }
+   </script>
+  </body>
+</html>
